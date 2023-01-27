@@ -1,147 +1,157 @@
-# HelloDrum Arduino Library
-[![arduino-library-badge](https://www.ardu-badge.com/badge/Hello%20Drum.svg?)](https://www.ardu-badge.com/Hello%20Drum)   
-This is a library for making E-Drum with Arduino.  
-**Ver.0.7.7(11/1/2020) Work in progress.** 
+# Biblioteca HelloDrum Arduino
+[![arduino-library-badge](https://www.ardu-badge.com/badge/Hello%20Drum.svg?)](https://www.ardu-badge.com/Hello%20Drum)
+Esta é uma biblioteca para fazer E-Drum com Arduino.
+**Ver.0.7.7(11/1/2020) Trabalho em andamento.**
 
-## Description
+## Descrição
 
-This is a library for making E-Drum with Arduino.  
-By using it with Arduino MIDI Library, you can make E-drum.  
+Esta é uma biblioteca para fazer E-Drum com Arduino.
+Ao usá-lo com a biblioteca Arduino MIDI, você pode criar E-drum.
 
-Project Page :[https://open-e-drums.com/](https://open-e-drums.com/)  
-Blog :[https://open-e-drums.tumblr.com/](https://open-e-drums.tumblr.com/)  
-YouTube :[https://www.youtube.com/channel/UCNCDcIO26xL_NhI04QY-v4A](https://www.youtube.com/channel/UCNCDcIO26xL_NhI04QY-v4A)  
-3D Models of Pad :[https://www.thingiverse.com/RyoKosaka/designs](https://www.thingiverse.com/RyoKosaka/designs)  
+Página do projeto:[https://open-e-drums.com/](https://open-e-drums.com/)
+Blog:[https://open-e-drums.tumblr.com/](https://open-e-drums.tumblr.com/)
+YouTube:[https://www.youtube.com/channel/UCNCDcIO26xL_NhI04QY-v4A](https://www.youtube.com/channel/UCNCDcIO26xL_NhI04QY-v4A)
+Modelos 3D de Pad: [https://www.thingiverse.com/RyoKosaka/designs](https://www.thingiverse.com/RyoKosaka/designs)
 
-**This software is an alpha version, and is unsupported.  
-Use at your own risk.**
+**Este software é uma versão alfa e não é compatível.
+Use por sua conta e risco.**
 
-## Features
+## Recursos
 
-- Single piezo pad, Dual piezo pad, 2-Zone cymbal, 3-Zone cymbal
-- Compatible with Roland's 2 zone pads (PD Series)  
-- Compatible with YAMAHA's 3 zone pads (XP Series)  
-- Compatible with YAMAHA's 3 zone cymbal(PCY135/PCY155) and Roland's 2 zone cymbals(CY12C/CY5/CY8)
-- Compatible with SoftPot, FSR and Optical(TCRT5000) type hi-hat controllers and Roland's hihat(VH10/VH11)
-- Sensing with MUX(4051 and 4067)
-- Setting mode with LCD or OLED
-- Setting mode with LCD Keypad Shield (DFRobot, HiLetgo)
-- Sensitivity, Threshold, Scan Time, Mask Time, Note Number, Velocity Curve can be set with each pad
-- Save setting values with EEPROM
-- Works with ESP32 and Teensy and AVR boards such as UNO and MEGA.
-- Works with [MIDI Library](https://github.com/FortySevenEffects/arduino_midi_library), [BLE-MIDI Library](https://github.com/lathoub/Arduino-BLE-MIDI), [USB-MIDI library](https://github.com/lathoub/Arduino-USBMIDI).
+- Pad piezo simples, pad piezo duplo, prato de 2 zonas, prato de 3 zonas
+- Compatível com os pads de 2 zonas da Roland (série PD)
+- Compatível com almofadas de 3 zonas da YAMAHA (Série XP)
+- Compatível com os pratos de 3 zonas da YAMAHA (PCY135/PCY155) e os pratos de 2 zonas da Roland (CY12C/CY5/CY8)
+- Compatível com controladores de chimbal do tipo SoftPot, FSR e Optical (TCRT5000) e chimbal da Roland (VH10/VH11)
+- Detecção com MUX (4051 e 4067)
+- Modo de configuração com LCD ou OLED
+- Modo de configuração com escudo do teclado LCD (DFRobot, HiLetgo)
+- Sensibilidade, limiar, tempo de varredura, tempo de máscara, número da nota, curva de velocidade podem ser definidos com cada pad
+- Salvar valores de configuração com EEPROM
+- Funciona com placas ESP32 e Teensy e AVR como UNO e MEGA.
+- Funciona com [Biblioteca MIDI](https://github.com/FortySevenEffects/arduino_midi_library), [Biblioteca BLE-MIDI](https://github.com/lathoub/Arduino-BLE-MIDI), [biblioteca USB-MIDI ](https://github.com/lathoub/Arduino-USBMIDI).
 
-## How to Use
-- **Install**  
-Use Arduino's Library Manager to install the library. Search for “hellodrum ”.  
-If you use MIDI, also install the [MIDI Library](https://github.com/FortySevenEffects/arduino_midi_library). Or [BLE-MIDI Library](https://github.com/lathoub/Arduino-BLE-MIDI) or [USB-MIDI library](https://github.com/lathoub/Arduino-USBMIDI).
+## Como usar
+- **Instalar**
+Use o Library Manager do Arduino para instalar a biblioteca. Pesquise por "hellodrum".
+Se você usa MIDI, instale também a [Biblioteca MIDI](https://github.com/FortySevenEffects/arduino_midi_library). Ou [Biblioteca BLE-MIDI](https://github.com/lathoub/Arduino-BLE-MIDI) ou [biblioteca USB-MIDI](https://github.com/lathoub/Arduino-USBMIDI).
 
 <img src="https://open-e-drums.com/images/ide.png" width="800px">
 
-- **Initialize EEPROM**  
-If you want to use EEPROM to store the settings, you will need to initialize the EEPROM.
-Please write the sample code, example > EEPROM > InitializeEEPROM > InitializeEEPROM.ino, to your Arduino. Once it's written, the initialization is complete.  
+- **Inicializar EEPROM**
+Se quiser usar a EEPROM para armazenar as configurações, você precisará inicializar a EEPROM.
+Por favor, escreva o código de exemplo, exemplo > EEPROM > InitializeEEPROM > InitializeEEPROM.ino, para o seu Arduino. Uma vez escrito, a inicialização está completa.
 
-- **Coding**
-   ```cpp
-    #include <hellodrum.h>
-    #include <MIDI.h>
-    MIDI_CREATE_DEFAULT_INSTANCE();
+- **Codificação**
+    ```cpp
+     #include <hellodrum.h>
+     #include <MIDI.h>
+     MIDI_CREATE_DEFAULT_INSTANCE();
 
-    //Please name your piezo.
-    //The piezo named snare is connected to the A0 pin
-    HelloDrum snare(0);
+     //Por favor nomeie seu piezo.
+     //O piezo chamado snare é conectado ao pino A0
+     HelloDrum caixa(0);
 
-    //Setting
-    byte SNARE[6] = {
-      80, //sensitivity 
-      10, //threshold
-      20, //scantime
-      20, //masktime
-      38, //note
-      1   //curve type
-    }; 
+     //Configuração
+     byte SNARE[6] = {
+       80, //sensibilidade
+       10, //limiar
+       20, //scantime
+       20, //masktime
+       38, //nota
+       1 //tipo de curva
+     };
 
-    void setup()
-    {
-        MIDI.begin(10);
-        snare.setCurve(SNARE[5]); //Set velocity curve 
-    }
+     void setup()
+     {
+         MIDI.begin(10);
+         snare.setCurve(SNARE[5]); //Define a curva de velocidade
+     }
 
-    void loop()
-    {
-        //Sensing
-        snare.singlePiezo(SNARE[0], SNARE[1], SNARE[2], SNARE[3]); //(sensitivity, threshold, scantime, masktime)
+     laço vazio()
+     {
+         //De detecção
+         snare.singlePiezo(SNARE[0], SNARE[1], SNARE[2], SNARE[3]); //(sensibilidade, limite, scantime, masktime)
 
-        //Sending MIDI signals
-        if (snare.hit == true) {
-            MIDI.sendNoteOn(SNARE[4], snare.velocity, 10);  //(note, velocity, channel)
-            MIDI.sendNoteOff(SNARE[4], 0, 10);
-        }
-    }
-    ```
+         //Enviando sinais MIDI
+         if (snare.hit == true) {
+             MIDI.sendNoteOn(SNARE[4], caixa.velocity, 10); //(nota, velocidade, canal)
+             MIDI.sendNoteOff(SNARE[4], 0, 10);
+         }
+     }
+     ```
 
-- **Coding (MUX)**:
-   ```cpp
-    #include <hellodrum.h>
-    #include <MIDI.h>
-    MIDI_CREATE_DEFAULT_INSTANCE();
+- **Codificação (MUX)**:
+    ```cpp
+     #include <hellodrum.h>
+     #include <MIDI.h>
+     MIDI_CREATE_DEFAULT_INSTANCE();
 
-    //Define MUX Pins
-    HelloDrumMUX_4051 mux(2,3,4,0);//D2, D3, D4, A0
+     //Define os pinos MUX
+     HelloDrumMUX_4051 mux(2,3,4,0);//D2, D3, D4, A0
     
-    //Please name your piezo.
-    //The piezo named snare is connected to MUX 0 pin
-    HelloDrum snare(0);
+     //Por favor nomeie seu piezo.
+     //O piezo chamado snare está conectado ao pino MUX 0
+     HelloDrum caixa(0);
 
-    //Setting
-    byte SNARE[6] = {
-      80,  //sensitivity
-      10,  //threshold
-      20,  //scantime
-      20,  //masktime
-      38,  //note
-      1    //curve type
-    }; 
+     //Configuração
+     byte SNARE[6] = {
+       80, //sensibilidade
+       10, //limiar
+       20, //scantime
+       20, //masktime
+       38, //nota
+       1 //tipo de curva
+     };
 
-    void setup()
-    {
-        MIDI.begin(10);
-        snare.setCurve(SNARE[5]); //Set velocity curve 
-    }
+     void setup()
+     {
+         MIDI.begin(10);
+         snare.setCurve(SNARE[5]); //Define a curva de velocidade
+     }
 
-    void loop()
-    {
-        //scanning all pin of mux
-        mux.scan();
+     laço vazio()
+     {
+         //varrendo todos os pinos do mux
+         mux.scan();
 
-        //Sensing
-        snare.singlePiezoMUX(SNARE[0], SNARE[1], SNARE[2], SNARE[3]); //(sensitivity, threshold, scantime, masktime)
+         //De detecção
+         snare.singlePiezoMUX(SNARE[0], SNARE[1], SNARE[2], SNARE[3]); //(sensibilidade, limite, scantime, masktime)
 
-        //Sending MIDI signals
-        if (snare.hit == true) {
-            MIDI.sendNoteOn(SNARE[4], snare.velocity, 10);  //(note, velocity, channel)
-            MIDI.sendNoteOff(SNARE[4], 0, 10);
-        }
-    }
-    ```  
+         //Enviando sinais MIDI
+         if (snare.hit == true) {
+             MIDI.sendNoteOn(SNARE[4], caixa.velocity, 10); //(nota, velocidade, canal)
+             MIDI.sendNoteOff(SNARE[4], 0, 10);
+         }
+     }
+     ```
 
-    [Check instruction.md](https://github.com/RyoKosaka/HelloDrum-arduino-Library/blob/master/docs/instruction.md) for more info on coding.
+     [Verifique a instrução.md](https://github.com/RyoKosaka/HelloDrum-arduino-Library/blob/master/docs/instruction.md) para obter mais informações sobre codificação.
 
-## Using Arduino MIDI Library
+## Usando a Biblioteca MIDI do Arduino
 
-[FortySevenEffects Arduino MIDI Library](https://github.com/FortySevenEffects/arduino_midi_library)   
-There are three ways to communicate with a PC using MIDI with an arduino.
+[Biblioteca MIDI do Arduino FortySevenEffects](https://github.com/FortySevenEffects/arduino_midi_library)
+Existem três maneiras de se comunicar com um PC usando MIDI com um arduino.
 
-1. Rewrite arduino's USB chip (UNO,MEGA only)
-    - https://www.arduino.cc/en/Hacking/DFUProgramming8U2
-    - http://morecatlab.akiba.coocan.jp/lab/index.php/aruino/midi-firmware-for-arduino-uno-moco/?lang=en
-2. Using Hairless MIDI (Easiest way)
-    - https://projectgus.github.io/hairless-midiserial/
-    - https://open-e-drums.tumblr.com/post/171304647319/using-hairless-midi
-3. Using a MIDI terminal and a MIDI-USB cable
-    - https://www.arduino.cc/en/Tutorial/Midi
-    - https://open-e-drums.tumblr.com/post/171168448524/using-midi-socket-with-arduino
+1. Reescrever o chip USB do arduino (somente UNO, MEGA)
+     - https://www.arduino.cc/en/Hacking/DFUProgramming8U2
+     - http://morecatlab.akiba.coocan.jp/lab/index.php/aruino/midi-firmware-for-arduino-uno-moco/?lang=en
+2. Usando Hairless MIDI (maneira mais fácil)
+
+## Usando a Biblioteca MIDI do Arduino
+
+[Biblioteca MIDI do Arduino FortySevenEffects](https://github.com/FortySevenEffects/arduino_midi_library)
+Existem três maneiras de se comunicar com um PC usando MIDI com um arduino.
+
+1. Reescrever o chip USB do arduino (somente UNO, MEGA)
+     - https://www.arduino.cc/en/Hacking/DFUProgramming8U2
+     - http://morecatlab.akiba.coocan.jp/lab/index.php/aruino/midi-firmware-for-arduino-uno-moco/?lang=en
+2. Usando Hairless MIDI (maneira mais fácil)
+     - https://projectgus.github.io/hairless-midiserial/
+     - https://open-e-drums.tumblr.com/post/171304647319/using-hairless-midi
+3. Usando um terminal MIDI e um cabo MIDI-USB
+     - https://www.arduino.cc/en/Tutorial/Midi
+     - https://open-e-drums.tumblr.com/post/171168448524/using-midi-socket-with-arduino
 
 
 ```cpp
@@ -152,10 +162,10 @@ MIDI_CREATE_DEFAULT_INSTANCE();
 //...
 ```
 
-## Using USB-MIDI Library
+## Usando a biblioteca USB-MIDI
 
-[lathoub Arduino-USBMIDI](https://github.com/lathoub/Arduino-USBMIDI)   
-If you are using atmega32u4 (Arduino Leonardo, Arduino Micro, Arduino Pro Micro...), you can use USB-MIDI library. No additional software is needed, the 32u4 is recognized as a MIDI device.
+[lathoub Arduino-USBMIDI](https://github.com/lathoub/Arduino-USBMIDI)
+Se você estiver usando atmega32u4 (Arduino Leonardo, Arduino Micro, Arduino Pro Micro...), você pode usar a biblioteca USB-MIDI. Nenhum software adicional é necessário, o 32u4 é reconhecido como um dispositivo MIDI.
 
 ```cpp
 #include <hellodrum.h>
@@ -165,11 +175,11 @@ USBMIDI_CREATE_DEFAULT_INSTANCE();
 //...
 ```
 
-## Using BLE-MIDI Library with ESP32
+## Usando a biblioteca BLE-MIDI com ESP32
 
-[lathoub Arduino-BLE-MIDI](https://github.com/lathoub/Arduino-BLE-MIDI)   
-It is very easy to use BLE-MIDI with ESP32.  
-You can find a device named "BLE-MIDI".
+[lathoub Arduino-BLE-MIDI](https://github.com/lathoub/Arduino-BLE-MIDI)
+É muito fácil usar BLE-MIDI com ESP32.
+Você pode encontrar um dispositivo chamado "BLE-MIDI".
 
 ```cpp
 #include <hellodrum.h>
@@ -179,86 +189,86 @@ BLEMIDI_CREATE_DEFAULT_INSTANCE();
 
 //...
 ```
-Please check the KORG's documentation for instructions on how to connect.  
-[KORG Bluetooth MIDI Connection Guide](https://cdn.korg.com/us/support/download/files/7c456d3daad3b027197b3fda1f87dce7.pdf?response-content-disposition=inline%3Bfilename%3DBluetooth_MIDI_SettingG_E1.pdf&response-content-type=application%2Fpdf%3B) 
+Verifique a documentação da KORG para obter instruções sobre como conectar.
+[Guia de conexão MIDI Bluetooth KORG](https://cdn.korg.com/us/support/download/files/7c456d3daad3b027197b3fda1f87dce7.pdf?response-content-disposition=inline%3Bfilename%3DBluetooth_MIDI_SettingG_E1.pdf&response-content-type=application% 2Fpdf% 3B)
 
-## Sensing Method and Setting Values
-**Be sure to check here first if it is not working properly.**  
-[Check sensing.md](https://github.com/RyoKosaka/HelloDrum-arduino-Library/blob/master/docs/sensing.md) for sensing methods.  
-[Check setting.md](https://github.com/RyoKosaka/HelloDrum-arduino-Library/blob/master/docs/setting.md) for setting values. 
+## Método de detecção e valores de configuração
+**Certifique-se de verificar aqui primeiro se não estiver funcionando corretamente.**
+[Verifique sensing.md](https://github.com/RyoKosaka/HelloDrum-arduino-Library/blob/master/docs/sensing.md) para métodos de detecção.
+[Verifique setting.md](https://github.com/RyoKosaka/HelloDrum-arduino-Library/blob/master/docs/setting.md) para definir os valores.
 
-## Circuit
-[Check circuit.md](https://github.com/RyoKosaka/HelloDrum-arduino-Library/blob/master/docs/circuit.md) for how to connect the pad and the board.
+## O circuito
+[Verifique circuit.md](https://github.com/RyoKosaka/HelloDrum-arduino-Library/blob/master/docs/circuit.md) para saber como conectar o bloco e a placa.
 
-## Pads
+## Almofadas
 
-The STL data of pads from 6 inches to 12 inches, hi-hat controllers(<https://www.thingiverse.com/RyoKosaka/designs>)
+Os dados STL de pads de 6 polegadas a 12 polegadas, controladores de chimbal (<https://www.thingiverse.com/RyoKosaka/designs>)
 
-## Release History
+## Histórico de Lançamentos
 
 * 0.7.7
-   - Bug fix for ESP32
-   - Add and Update sample codes about BLE-MIDI, USB-MIDI
+    - Correção de bug para ESP32
+    - Adicionar e atualizar códigos de amostra sobre BLE-MIDI, USB-MIDI
 * 0.7.6
-   - Bug fix for LCD and buttons
-   - Add and Update sample codes
-* 0.7.5
-   - Bug fix for ESP32
-   - Bug fix for hihatControl()
-   - Update sample codes
-   - Add pullup mode to deal with floating pins (Beta)
-   - Add debug mode
+    - Correção de bug para LCD e botões
+    - Adicionar e atualizar códigos de amostra
+* 0,7,5
+    - Correção de bug para ESP32
+    - Correção de bug para hihatControl()
+    - Atualizar códigos de amostra
+    - Adicionar modo pullup para lidar com pinos flutuantes (Beta)
+    - Adicionar modo de depuração
 * 0.7.4
-   - Add velocity curve function
-   - FSR() and TCRT5000() integrated into hihatControl()
-   - Update circuits
-   - Add circuit images
-   - Update sensing algorithm
-   - Add sensing figure
-   - Update sample code
-   - Organize the source code
+    - Adicionar função de curva de velocidade
+    - FSR() e TCRT5000() integrados em hihatControl()
+    - Atualizar circuitos
+    - Adicionar imagens de circuito
+    - Atualizar o algoritmo de detecção
+    - Adicionar figura de detecção
+    - Atualize o código de amostra
+    - Organizar o código-fonte
 * 0.7.3
-   - Update variables type
-   - Add button function for LCD keypad shield
-   - Add sample code "lcdShield.ino" for LCD keypad shield
+    - Atualizar tipo de variáveis
+    - Adicionar função de botão para escudo do teclado LCD
+    - Adicione o código de amostra "lcdShield.ino" para a proteção do teclado LCD
 * 0.7.2
-   - Update sample code
-   - Add Knob function
-   - Add sample code for Teensy
+    - Atualize o código de amostra
+    - Adicionar função de botão
+    - Adicionar código de amostra para Teensy
 * 0.7.1
-   - Sensing with 16ch MUX(4067) is available
-   - Update sample code
-   - Organize folders and files
-   - Add library.properties
-   - Teensy3.2 has been tested
+    - Está disponível detecção com MUX de 16 canais (4067)
+    - Atualize o código de amostra
+    - Organizar pastas e arquivos
+    - Adicionar biblioteca.propriedades
+    - Teensy3.2 foi testado
 * 0.7.0
-   - Improved sensing
-   - Dual Piezo sensing available (Test)
-   - ESP32 EEPROM available
-   - Setting mode with I2C LCD or I2C OLED available
-   - Add sample code
+    - Detecção melhorada
+    - Sensor piezo duplo disponível (teste)
+    - ESP32 EEPROM disponível
+    - Modo de configuração com I2C LCD ou I2C OLED disponível
+    - Adicionar código de exemplo
 * 0.6.0
-   - Sensing with MUX(4051) is available
-   - Add BLE MIDI sample code with ESP32
-   - Hihat Contorller with FSR is available
+    - A detecção com MUX (4051) está disponível
+    - Adicionar código de amostra BLE MIDI com ESP32
+    - Hihat Contorller com FSR está disponível
 * 0.5.0
-   - Setting mode available
-   - Display function by LCD is available
-   - Saving function of setting items by EEPROM is available
-   - Improved sensing of TCRT 5000 hi-hat controller
+    - Modo de configuração disponível
+    - A função de exibição por LCD está disponível
+    - A função de salvar os itens de configuração por EEPROM está disponível
+    - Detecção aprimorada do controlador de chimbal TCRT 5000
 * 0.1.0
-   - Work in progress
+    - Trabalho em progresso
 
-## ToDo
+## Pendência
 - rimGain
-- retriggerCancel
-- rotaryEncoder
+- retriggerCancelar
+- Codificador rotativo
 
-## Author
+## Autor
 
-[@tnctrekit](https://twitter.com/tnctrekit)  
-[Works](https://ryokosaka.com)
+[@tnctrekit](https://twitter.com/tnctrekit)
+[Funciona](https://ryokosaka.com)
 
-## Licence
+## Licença
 
 [MIT](http://opensource.org/licenses/mit-license.php)
